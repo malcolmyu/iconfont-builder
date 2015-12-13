@@ -1,0 +1,16 @@
+# idea ignore
+.idea/
+
+# temp ignore
+*.log
+*.cache
+*.diff
+*.patch
+*.tmp
+
+# system ignore
+.DS_Store
+Thumbs.db
+
+# project ignore
+/node_modules/
