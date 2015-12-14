@@ -1,4 +1,4 @@
-# `iconfont-builder`
+# iconfont-builder
 
 ## Introduction
 
@@ -7,57 +7,107 @@ Iconfont-builder is a node.js package for providing a middleware that create som
 ## Installation (via [npm](https://npmjs.org/package/iconfont-builder))
 
 ```bash
-$ npm install iconfont-builder
+$ npm i --save iconfont-builder
 ```
+
 ## Usage
 
 ### Simple Usage
 
-```javascript
-var iconfontBuilder = require('iconfont-builder');
+```js
+var builder = require('iconfont-builder');
 var path = require('path');
 
-/*单个svgicon配置信息
-    {
-        id: [Number],  // 用于生成字体时读取srcFile内对应id的svg文件
-        name: [String], // 用于生成字体时图标类名
-        codepoint: [Number] // 用于生成字体时图标编码
-    }
-*/
-var src = {
-	svgIcons: [{
-		id: 1,
-		name: "www-star-o",
-		codepoint: 61440
-	},{
-		id: 2,
-		name: "www-fish-o",
-		codepoint: 61441
-	},{
-		id: 3,
-		name: "www-star-f",
-		codepoint: 61442
-	},{
-		id: 4,
-		name: "www-fish-f",
-		codepoint: 61443
-	}],
-	svgDir: path.join(__dirname, 'srcFile')
+var options = {
+    icons: [
+        {
+            name: 'www-font-o',
+            file: 'abc.svg',
+            codepoint: 61441
+        }
+    ],
+    src: path.join(__dirname, 'src'),
+    fontName: 'iconfont',
+    ascent: 0,
+    descent: 0,
+    dest: path.join(__dirname, 'dest')
 };
 
-var dest = path.join(__dirname, 'destFile');
-
-var opts = {
-	fontName: 'iconfont',
-	normalize: true,
-};
-
-iconfontBuilder(src, dest, opts, function(err, results){
-	console.log("err = ", err);
-	console.log("results = ", results);
-});
-
+builder(options)
+    .then().catch();
 ```
+
+### List of options
+
+#### icons
+
+Type: `Array<Object>`
+
+Example:
+
+```js
+{
+    name: 'www-font-o', // className of icon
+    file: 'abc.svg',    // fileName of icon
+    codepoint: 61441    // unicode of icon
+}
+```
+
+#### writeFiles
+
+Type: `Boolean`
+
+Default: `true`
+
+It is possible to not create font files but get the attribute **d** of each icon svg. The attribute d contains all paths' information of an icon, which can be use to draw a svg icon.
+
+#### fontName
+
+Type: `String`
+
+Default: `'iconfont'`
+
+Name of font and font files.
+
+#### startCodePoint
+
+Type: `Number`
+
+Default: `0xF000`
+
+Start of font's unicode in DEC(e.g. `61441`) or HEX(e.g. `0xF001`). When passing `options` without `icons`, builder will use `startCodePoint` as the first unicode of font icon, and the unicode of each remaining icons will increased by one in order.
+
+#### src
+
+Type: `String`
+
+Default: `'.'`
+
+Directory of source svg font files.
+
+#### dest
+
+Type: `String`
+
+Directory for generated font files.
+
+#### descent
+
+Type: `Number`
+
+Default: `0`
+
+The font descent. It's useful to fix the font baseline yourself.
+
+Warning: The descent is a positive value!
+
+#### ascent
+
+Type: `Number`
+
+Default: `1024`
+
+The font ascent. Use this options only if you know what you're doing. A suitable value for this is computed for you.
 
 ## Author
 
