@@ -21,7 +21,8 @@
     "svgicons2svgfont": "^3.2.1",
     "ttf2eot": "^1.3.0",
     "ttf2woff": "^1.3.0",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "xmldom": "^0.1.19"
   },
   "_shasum": "e3c739c3e787ed46ba3cd9e6120c32e805b7d7f5",
   "_from": "iconfont-builder@1.0.6",
