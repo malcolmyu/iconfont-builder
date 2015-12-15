@@ -101,14 +101,6 @@ The font descent. It's useful to fix the font baseline yourself.
 
 Warning: The descent is a positive value!
 
-#### ascent
-
-Type: `Number`
-
-Default: `1024`
-
-The font ascent. Use this options only if you know what you're doing. A suitable value for this is computed for you.
-
 ## Author
 
 [missmiss](http://www.weibo.com/ssherrylliu)
