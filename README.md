@@ -1,5 +1,7 @@
 # iconfont-builder
 
+[中文版](https://github.com/q-iconfont/iconfont-builder/blob/master/README_CN.md)
+
 ## Introduction
 
 Iconfont-builder is a node.js package for providing a middleware that create some font files.
@@ -28,7 +30,6 @@ var options = {
     ],
     src: path.join(__dirname, 'src'),
     fontName: 'iconfont',
-    ascent: 0,
     descent: 0,
     dest: path.join(__dirname, 'dest')
 };
@@ -60,6 +61,14 @@ Type: `Boolean`
 Default: `true`
 
 It is possible to not create font files but get the attribute **d** of each icon svg. The attribute d contains all paths' information of an icon, which can be use to draw a svg icon.
+
+#### readFiles
+
+Type: `Boolean`
+
+Default: `true`
+
+You can only use attribute **d** to create font files! If this param is `false`, the Object in param `icons` should have attribute `d`.
 
 #### fontName
 

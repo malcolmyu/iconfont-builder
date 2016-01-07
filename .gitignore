@@ -14,3 +14,6 @@ Thumbs.db
 
 # project ignore
 /node_modules/
+
+# test ignore
+/test/builder/dest/
