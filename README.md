@@ -114,4 +114,4 @@ Warning: The descent is a positive value!
 
 [missmiss](http://www.weibo.com/ssherrylliu)
 
-**[Follow me (@missmiss) on Github!](http://missmiss.github.io/)**
+[malcolmyu](https://twitter.com/minghaoyu)
