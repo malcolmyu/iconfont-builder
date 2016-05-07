@@ -3,15 +3,17 @@
 <svg xmlns="http://www.w3.org/2000/svg">
   <defs>
     <font id="{{fontName}}" horiz-adv-x="1024">
-      <font-face font-family="{{fontName}}"
-                 units-per-em="1024"
-                 ascent="{{ascent}}"
-                 descent="{{descent}}" />
+      <font-face
+        font-family="{{fontName}}"
+        units-per-em="1024"
+        scent="{{ascent}}"
+        descent="{{descent}}" />
       <missing-glyph horiz-adv-x="0"/>
       {{#each icons}}
-        <glyph glyph-name="{{name}}"
-               unicode="{{unicode}}"
-               horiz-adv-x="1024" d="{{d}}" />
+        <glyph
+          glyph-name="{{name}}"
+          unicode="{{unicode}}"
+          horiz-adv-x="1024" d="{{d}}" />
       {{/each}}
     </font>
   </defs>
