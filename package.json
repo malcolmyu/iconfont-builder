@@ -10,7 +10,7 @@
   "keywords": [
     "iconfont svg ttf png eot woff"
   ],
-  "author": "minghao.yu",
+  "author": ["missmiss", "minghao.yu"],
   "dependencies": {
     "handlebars": "^4.0.5",
     "mkdirp": "^0.5.1",
