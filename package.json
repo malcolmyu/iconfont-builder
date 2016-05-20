@@ -10,7 +10,7 @@
   "keywords": [
     "iconfont svg ttf png eot woff"
   ],
-  "author": "missmiss",
+  "author": "minghao.yu",
   "dependencies": {
     "handlebars": "^4.0.5",
     "mkdirp": "^0.5.1",
@@ -25,9 +25,5 @@
   },
   "devDependencies": {
     "mocha": "^2.3.4"
-  },
-  "maintainers": [
-    "missmiss <514816977@qq.com>",
-    "malcolm <minghao_yu@163.com>"
-  ]
+  }
 }
