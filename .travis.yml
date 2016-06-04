@@ -7,7 +7,7 @@ node_js:
   - "5"
   - "stable"
 
-sudo: false
+sudo: required
 
 script:
   - npm test
