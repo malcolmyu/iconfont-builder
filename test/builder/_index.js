@@ -6,7 +6,7 @@ var Q = require('q');
 var _ = require('underscore');
 var builder = require('../../lib');
 
-var basePath = 'test/builder';
+var basePath = './test/builder';
 var dest = path.join(basePath, 'dest');
 
 function getOptions() {
