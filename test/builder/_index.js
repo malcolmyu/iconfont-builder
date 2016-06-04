@@ -6,8 +6,7 @@ var Q = require('q');
 var _ = require('underscore');
 var builder = require('../../lib');
 
-var basePath = './test/builder';
-var dest = path.join(basePath, 'dest');
+var dest = path.join(__dirname, 'dest');
 
 function getOptions() {
   return {
@@ -18,7 +17,7 @@ function getOptions() {
         file: 'test.svg'
       }
     ],
-    src: basePath,
+    src: __dirname,
     dest: dest,
     fontName: 'iconfont'
   };
