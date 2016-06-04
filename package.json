@@ -1,6 +1,6 @@
 {
   "name": "iconfont-builder",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "a tool to build fonts via iconfont-builder",
   "repository": "https://github.com/q-iconfont/iconfont-builder.git",
   "main": "lib/index.js",
