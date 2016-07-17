@@ -44,6 +44,22 @@ function generateFonts(options) {
 }
 
 describe('生成正确的字体文件', function() {
+  it('使用 buffer 生产字体', function(done) {
+    var options = getOptions();
+    var iconFile = path.join(options.src, options.icons[0].file);
+    Q.nfcall(fs.readFile, iconFile)
+      .then(function(buffer) {
+        options.icons[0].buffer = buffer;
+        return generateFonts(options);
+      })
+      .then(function() {
+        done();
+      })
+      .catch(function(err) {
+        done(err);
+      });
+  });
+
   it('传递完整的icon信息', function(done) {
     var options = getOptions();
 
