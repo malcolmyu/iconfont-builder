@@ -15,7 +15,7 @@ function getOptions() {
     icons: [
       {
         name: 'www-font-o',
-        codepoint: 0xE000,
+        codepoint: 0xF000,
         file: 'test.svg'
       }
     ],
@@ -119,6 +119,7 @@ describe('生成正确的字体文件', function() {
 
   it('检测自动填充 codepoint 生成是否正确', function(done) {
     var options = getOptions();
+    delete options.icons[0].codepoint;
     options.icons.push({
       name: 'www-font-x',
       file: 'test.svg'
@@ -140,6 +141,49 @@ describe('生成正确的字体文件', function() {
               case 'www-font-x':
                 if (code !== 0xE001) {
                   done(new Error('第二个字体的编码错误，应为 0xE001，输出 ' + code.toString(16)));
+                }
+                break;
+            }
+          }
+        };
+        parser.onend = function() {
+          done();
+        };
+        var svgPath = path.join(dest, 'iconfont.svg');
+        Q.nfcall(fs.readFile, svgPath).then(function(data) {
+          parser.write(data).close();
+        });
+      })
+      .catch(function(err) {
+        done(err);
+      });
+  });
+
+  it('codepoint 去重', function(done) {
+    var options = getOptions();
+    delete options.icons[0].codepoint;
+    options.icons.push({
+      name: 'www-font-x',
+      codepoint: 0xE000,
+      file: 'test.svg'
+    });
+
+    generateFonts(options)
+      .then(function() {
+        parser.onopentag = function(node) {
+          if (node.name === 'GLYPH') {
+            var attributes = node.attributes;
+            var name = attributes['GLYPH-NAME'];
+            var code = attributes['UNICODE'].codePointAt(0);
+            switch (name) {
+              case 'www-font-o':
+                if (code !== 0xE001) {
+                  done(new Error('第一个字体的编码错误，应为 0xE001，输出 0x' + code.toString(16)));
+                }
+                break;
+              case 'www-font-x':
+                if (code !== 0xE000) {
+                  done(new Error('第二个字体的编码错误，应为 0xE000，输出 0x' + code.toString(16)));
                 }
                 break;
             }
