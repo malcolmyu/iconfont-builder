@@ -30,7 +30,6 @@ describe('能正确解析字体文件', function() {
           if (!icon.d) {
             done(new Error('icon ' + icon.name + 'has no path'));
           }
-          console.log(icon.d);
         });
         done();
       })

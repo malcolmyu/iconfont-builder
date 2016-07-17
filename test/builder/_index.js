@@ -2,6 +2,8 @@ var assert = require('assert');
 var fs = require('fs');
 var path = require('path');
 var Q = require('q');
+var sax = require('sax');
+var parser = require('sax').parser();
 
 var _ = require('underscore');
 var builder = require('../../lib');
@@ -13,7 +15,7 @@ function getOptions() {
     icons: [
       {
         name: 'www-font-o',
-        codepoint: 0xF001,
+        codepoint: 0xE000,
         file: 'test.svg'
       }
     ],
@@ -50,6 +52,8 @@ describe('生成正确的字体文件', function() {
     Q.nfcall(fs.readFile, iconFile)
       .then(function(buffer) {
         options.icons[0].buffer = buffer;
+        delete options.icons[0].codepoint;
+        delete options.icons[0].file;
         return generateFonts(options);
       })
       .then(function() {
@@ -107,6 +111,47 @@ describe('生成正确的字体文件', function() {
     generateFonts(options)
       .then(function() {
         done();
+      })
+      .catch(function(err) {
+        done(err);
+      });
+  });
+
+  it('检测自动填充 codepoint 生成是否正确', function(done) {
+    var options = getOptions();
+    options.icons.push({
+      name: 'www-font-x',
+      file: 'test.svg'
+    });
+
+    generateFonts(options)
+      .then(function() {
+        parser.onopentag = function(node) {
+          if (node.name === 'GLYPH') {
+            var attributes = node.attributes;
+            var name = attributes['GLYPH-NAME'];
+            var code = attributes['UNICODE'].codePointAt(0);
+            switch (name) {
+              case 'www-font-o':
+                if (code !== 0xE000) {
+                  done(new Error('第一个字体的编码错误，应为 0xE000，输出 ' + code.toString(16)));
+                }
+                break;
+              case 'www-font-x':
+                if (code !== 0xE001) {
+                  done(new Error('第二个字体的编码错误，应为 0xE001，输出 ' + code.toString(16)));
+                }
+                break;
+            }
+          }
+        };
+        parser.onend = function() {
+          done();
+        };
+        var svgPath = path.join(dest, 'iconfont.svg');
+        Q.nfcall(fs.readFile, svgPath).then(function(data) {
+          parser.write(data).close();
+        });
       })
       .catch(function(err) {
         done(err);
