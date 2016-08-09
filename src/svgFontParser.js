@@ -28,7 +28,7 @@ function getPathData(svgContent, options) {
 }
 
 function getSvgIcon(options) {
-  var tmpPath = path.join(__dirname, 'svg.handlebars');
+  var tmpPath = path.join(__dirname, '../template/svg.handlebars');
   return Q.nfcall(fs.readFile, tmpPath, 'utf-8')
     .then(function(source) {
       var template = handlebars.compile(source);

@@ -6,12 +6,13 @@
 
 var fs = require('fs');
 var path = require('path');
-
+var Q = require('q');
 var _ = require('underscore');
 var s2s = require('svgicons2svgfont');
 var svg2ttf = require('svg2ttf');
 var ttf2eot = require('ttf2eot');
 var ttf2woff = require('ttf2woff');
+var handlebars = require('handlebars');
 
 var defer = require('./defer');
 var parser = require('./svgFontParser');
@@ -104,6 +105,22 @@ function generateEot(ttfFont) {
 }
 
 /**
+ * 生成方便用户查看字体的 html
+ *
+ * @param {Object} options
+ */
+
+function generateHtml(options) {
+  var tmpPath = path.join(__dirname, '../template/html.handlebars');
+  options.timestamp = +new Date;
+  return Q.nfcall(fs.readFile, tmpPath, 'utf-8')
+    .then(function(source) {
+      var template = handlebars.compile(source);
+      return template(options);
+    });
+}
+
+/**
  * 按照依赖关系生成字体
  *
  * @param {Object} options 生成字体参数对象
@@ -125,13 +142,21 @@ function generateFonts(options) {
     svg = generateSvg(options.icons, svgOpts, options);
   }
 
+  // 当不需要 writeFiles 时不需要生成 ttf/eot/woff
+  if (!options.writeFiles) {
+    return svg;
+  }
+
   // ttf 依赖 svg 的生成
   var ttf = svg.then(generateTtf);
   // eot 和 woff 依赖 tff 的生成
   var eot = ttf.then(generateEot);
   var woff = ttf.then(generateWoff);
 
-  return Promise.all([svg, ttf, eot, woff]);
+  // 最后生成 html，这东西其实无所谓
+  var html = generateHtml(options);
+
+  return Promise.all([svg, ttf, eot, woff, html]);
 }
 
 module.exports = generateFonts;

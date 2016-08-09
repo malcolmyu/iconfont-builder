@@ -34,14 +34,13 @@ function builder(options) {
       options.icons = icons;
       return generator(options);
     })
-    .then(function(fonts) {
+    .then(function(data) {
       if (options.writeFiles) {
-        return writeFonts(fonts, options);
+        return writeFonts(data, options);
       } else {
-        // fonts 为数组，其中第一项为 svg 文件
-        var svgFile = fonts[0];
         // 直接返回包含 d 的 icon 数据
-        return parser.getPathData(svgFile, options);
+        // 注意这里的 data 不是数组，是 svg 文件内容
+        return parser.getPathData(data, options);
       }
     });
 }
@@ -54,7 +53,7 @@ function builder(options) {
  * @returns {Promise}
  */
 function writeFonts(fonts, options) {
-  var type = ['svg', 'ttf', 'eot', 'woff'];
+  var type = ['svg', 'ttf', 'eot', 'woff', 'html'];
 
   var fontsQ = _.map(fonts, function(font, i) {
     var filePath = path.join(options.dest, options.fontName + '.' + type[i]);

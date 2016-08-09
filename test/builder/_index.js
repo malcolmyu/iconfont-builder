@@ -6,7 +6,7 @@ var sax = require('sax');
 var parser = require('sax').parser();
 
 var _ = require('underscore');
-var builder = require('../../lib');
+var builder = require('../../src');
 
 var dest = path.join(__dirname, 'dest');
 
@@ -21,7 +21,7 @@ function getOptions() {
     ],
     src: __dirname,
     dest: dest,
-    fontName: 'iconfont'
+    fontName: 'myfont'
   };
 }
 
@@ -37,7 +37,7 @@ function generateFonts(options) {
     .then(function() {
       var fonts = ['svg', 'ttf', 'eot', 'woff'];
       var fontsQ = _.map(fonts, function(type) {
-        var file = path.join(dest, 'iconfont.' + type);
+        var file = path.join(dest, 'myfont.' + type);
         return Q.nfcall(fs.access, file);
       });
 
@@ -135,12 +135,12 @@ describe('生成正确的字体文件', function() {
             switch (name) {
               case 'www-font-o':
                 if (code !== 0xE000) {
-                  done(new Error('第一个字体的编码错误，应为 0xE000，输出 ' + code.toString(16)));
+                  done(new Error('第一个字体的编码错误，应为 0xe000，输出 ' + code.toString(16)));
                 }
                 break;
               case 'www-font-x':
                 if (code !== 0xE001) {
-                  done(new Error('第二个字体的编码错误，应为 0xE001，输出 ' + code.toString(16)));
+                  done(new Error('第二个字体的编码错误，应为 0xe001，输出 ' + code.toString(16)));
                 }
                 break;
             }
@@ -149,7 +149,7 @@ describe('生成正确的字体文件', function() {
         parser.onend = function() {
           done();
         };
-        var svgPath = path.join(dest, 'iconfont.svg');
+        var svgPath = path.join(dest, 'myfont.svg');
         Q.nfcall(fs.readFile, svgPath).then(function(data) {
           parser.write(data).close();
         });
@@ -192,7 +192,7 @@ describe('生成正确的字体文件', function() {
         parser.onend = function() {
           done();
         };
-        var svgPath = path.join(dest, 'iconfont.svg');
+        var svgPath = path.join(dest, 'myfont.svg');
         Q.nfcall(fs.readFile, svgPath).then(function(data) {
           parser.write(data).close();
         });

@@ -1,6 +1,6 @@
 var _ = require('underscore');
 
-var builder = require('../../lib');
+var builder = require('../../src');
 
 var basePath = 'test/parser';
 
@@ -14,7 +14,7 @@ function getOptions() {
       }
     ],
     src: basePath,
-    fontName: 'iconfont'
+    fontName: 'myfont'
   };
 }
 
