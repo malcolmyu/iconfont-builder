@@ -2,7 +2,7 @@
   "name": "iconfont-builder",
   "version": "2.2.1",
   "description": "a tool to build fonts via svg",
-  "repository": "https://github.com/q-iconfont/iconfont-builder.git",
+  "repository": "https://github.com/malcolmyu/iconfont-builder.git",
   "main": "src/index.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha"
