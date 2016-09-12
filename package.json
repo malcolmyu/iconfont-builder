@@ -1,6 +1,6 @@
 {
   "name": "iconfont-builder",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "a tool to build fonts via svg",
   "repository": "https://github.com/malcolmyu/iconfont-builder.git",
   "main": "src/index.js",
