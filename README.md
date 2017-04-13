@@ -1,7 +1,7 @@
 # iconfont-builder
 
 [![Build Status](https://travis-ci.org/q-iconfont/iconfont-builder.svg?branch=master)](https://travis-ci.org/q-iconfont/iconfont-builder)
-[![npm](https://img.shields.io/npm/dt/iconfont-builder.svg?maxAge=60)](https://www.npmjs.com/package/iconfont-builder)
+[![npm](https://img.shields.io/npm/dt/iconfont-builder.svg)](https://www.npmjs.com/package/iconfont-builder)
 
 [中文版](https://github.com/malcolmyu/iconfont-builder/blob/master/README_CN.md)
 
